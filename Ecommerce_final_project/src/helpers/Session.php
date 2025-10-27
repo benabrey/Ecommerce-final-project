@@ -1,0 +1,2 @@
+<?php
+//Manage login sessions

@@ -1,0 +1,2 @@
+<?php
+//Sends emails
