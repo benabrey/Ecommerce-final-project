@@ -89,7 +89,8 @@ class ProductController {
             ->numeric('stock_quantity', $stockQuantity);
 
         if ($validator->fails()) {
-            Session::flash('errors', $validator->getErrors());
+            $errorMessages = implode(', ', $validator->getErrors());
+            Session::flash('error', $errorMessages);
             header('Location: /admin/products.php');
             exit();
         }
