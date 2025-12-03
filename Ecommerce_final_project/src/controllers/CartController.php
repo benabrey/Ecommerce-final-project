@@ -74,7 +74,7 @@ class CartController {
 
          if (!$this->productModel->hasStock($productId, $quantity)) {
              Session::flash('error', 'Insufficient stock');
-             header('Location: /product.php?id=' . $productId);
+             header('Location: /products.php?id=' . $productId);
              exit();
          }
 
