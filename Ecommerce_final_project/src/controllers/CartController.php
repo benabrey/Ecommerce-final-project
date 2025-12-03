@@ -332,4 +332,18 @@ class CartController {
          header('Location: /order-confirmation.php?id=' . $orderId);
          exit();
     }
+
+    public function showOrderConfirmation($orderId){
+        Auth::requireAuth();
+        $order = $this->orderModel->findById($orderId);
+        if(!$order || $order['user_id'] !== Auth::id()){
+            header('Location: /index.php');
+            exit();
+        }
+
+        $orderItems = $this->orderModel->getItems($orderId);
+        $total = $order['total_amount'];
+
+        require_once __DIR__ . '/../views/order-confirmation.php';
+    }
 }
