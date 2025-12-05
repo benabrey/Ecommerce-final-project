@@ -1,23 +1,17 @@
 <?php
-// Single product detail page
+// Products listing page
 
- require_once __DIR__ . '/../config/database.php';
+require_once __DIR__ . '/../config/database.php';
+require_once __DIR__ . '/../src/controllers/ProductController.php';
+require_once __DIR__ . '/../src/helpers/Session.php';
 
- require_once __DIR__ . '/../src/controllers/ProductController.php';
- require_once __DIR__ . '/../src/helpers/Session.php';
+Session::start();
 
- Session::start();
+$db = getDatabaseConnection();
+$productController = new ProductController($db);
 
- $db = getDatabaseConnection();
+// Set page title
+$pageTitle = "Products - ShopHub";
 
- $productController = new ProductController($db);
-
- $productId = $_GET['id'] ?? null;
-
- if (!$productId || !is_numeric($productId)) {
-     Session::flash('error', 'Invalid product ID');
-     header('Location: /products.php');
-     exit();
- }
-
- $productController->show((int)$productId);
+// Show products listing
+$productController->index();
